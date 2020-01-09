@@ -1,3 +1,5 @@
+'use strict'
+
 module.exports = () => {
   const length = 8
   const chartset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*@#$%&+="
