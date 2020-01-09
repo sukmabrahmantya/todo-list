@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = (err, req, res, next) => {
+  console.log(err.name)
   let status, message
   switch (err.name) {
     case 'ValidationError':
@@ -12,7 +13,14 @@ module.exports = (err, req, res, next) => {
       }
 
       status = 400
-      message = errors
+
+      if(errors.length > 1) message = errors
+      else message = errors[0]
+      
+      break
+    case 'MongoError':
+      status = 400
+      message = 'Email is already in use'
       break
     case 'SyntaxError':
       status = 401

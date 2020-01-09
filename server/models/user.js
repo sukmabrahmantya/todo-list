@@ -11,13 +11,13 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Email cannot be empty'],
-    unique: [true, 'Email already taken']
+    unique: true
   },
   password: {
     type: String,
     required: [true, 'Password cannot be empty'],
     minlength: [8, 'Password must be 8 - 12 character'],
-    maxlength: [12, 'Passweod must be 8 - 12 characters']
+    maxlength: [12, 'Passwerd must be 8 - 12 characters']
   }
 })
 
