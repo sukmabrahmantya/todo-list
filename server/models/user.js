@@ -19,6 +19,9 @@ const userSchema = new Schema({
     minlength: [8, 'Password must be 8 - 12 character'],
     maxlength: [12, 'Passwerd must be 8 - 12 characters']
   }
+}, {
+  timestamps: true,
+  versionKey: false
 })
 
 userSchema.pre('save', function(next) {

@@ -10,7 +10,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 const errorHandler = require('./middlewares/errorHandler')
 
-mongoose.connect(process.env.MONGO_LOCAL, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true, 
   useFindAndModify: false, 
   useUnifiedTopology: true,
