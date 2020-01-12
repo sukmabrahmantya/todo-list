@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose')
 const ObjectId = Schema.Types.ObjectId
 
 const todoSchema = new Schema ({
-  name: {
+  title: {
     type: String,
     required: [true, 'Title cannot be empty']
   },
@@ -22,6 +22,10 @@ const todoSchema = new Schema ({
   user: {
     type: ObjectId,
     ref: 'User'
+  },
+  project: {
+    type: ObjectId,
+    ref: 'Project'
   }
 }, {
   timestamps: true,
