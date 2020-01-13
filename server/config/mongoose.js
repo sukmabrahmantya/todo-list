@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const URI = process.env.MONGODB_URI || 'mongodb://localhost/default'
+const URI = process.env.MONGO_URI || 'mongodb://localhost/default'
 
 mongoose
   .connect(URI, {
