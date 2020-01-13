@@ -1,5 +1,5 @@
-'use strict'
-
-const User = require('./user')
-
-module.exports = { User }
+module.exports = {
+  UserController: require('./userC'),
+  TodoController: require('./todoC'),
+  GroupController: require('./groupC')
+}

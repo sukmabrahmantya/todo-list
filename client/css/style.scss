@@ -1,0 +1,32 @@
+$nav-margin: 8vh;
+
+#main {
+  min-height: 100vh;
+  padding-top: $nav-margin;
+
+  #landing-page {
+    height: 100vh - $nav-margin;
+    margin: 0;
+  }
+
+  #signup-page,
+  #signin-page {
+    .card {
+      min-width: 35%;
+    }
+  }
+
+  #dashboard-page {
+    #todo-cards {
+      .fa-edit:hover {
+        color: #000 !important;
+      }
+    }
+  }
+
+  #group-list-page {
+    #group-list {
+      cursor: pointer;
+    }
+  }
+}

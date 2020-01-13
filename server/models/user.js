@@ -1,35 +1,69 @@
-'use strict'
+const { Schema, model, models } = require('mongoose')
+const { hash } = require('../helpers/passwordHandler')
 
-const { Schema, model } = require('mongoose')
-const bcrypt = require('bcryptjs')
-
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, "Name cannot be empty"]
+const userShcema = new Schema(
+  {
+    username: {
+      type: String,
+      required: [true, 'Username required'],
+      validate: [
+        {
+          validator(val) {
+            return models.User.findOne({ username: val }).then(user => {
+              if (user) return false
+              return true
+            })
+          },
+          msg: 'Username already taken'
+        },
+        {
+          validator(val) {
+            return /^[a-zA-Z0-9_.]+$/.test(val)
+          },
+          msg:
+            'Username can only have alphabets, numbers, underscores, and dots'
+        }
+      ]
+    },
+    email: {
+      type: String,
+      required: [true, 'Email required'],
+      validate: [
+        {
+          validator(val) {
+            return models.User.findOne({ email: val }).then(user => {
+              if (user) return false
+              return true
+            })
+          },
+          msg: 'Email already registered'
+        },
+        {
+          validator(val) {
+            return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+              val
+            )
+          },
+          msg: 'Invalid email format'
+        }
+      ]
+    },
+    password: {
+      type: String,
+      required: [true, 'Password required'],
+      minlength: [6, 'Password must have at least 6 characters']
+    }
   },
-  email: {
-    type: String,
-    required: [true, 'Email cannot be empty'],
-    unique: true
-  },
-  password: {
-    type: String,
-    required: [true, 'Password cannot be empty'],
-    minlength: [8, 'Password must be 8 - 12 character'],
-    maxlength: [12, 'Passwerd must be 8 - 12 characters']
+  {
+    versionKey: false
   }
-}, {
-  timestamps: true,
-  versionKey: false
-})
+)
 
-userSchema.pre('save', function(next) {
-  const salt = bcrypt.genSaltSync(10)
-  this.password = bcrypt.hashSync(this.password, salt)
+userShcema.post('validate', function(user, next) {
+  user.password = hash(user.password)
   next()
 })
 
-const User = model('User', userSchema)
+const User = model('User', userShcema)
 
 module.exports = User

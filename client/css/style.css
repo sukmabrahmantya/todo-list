@@ -1,0 +1,23 @@
+#main {
+  min-height: 100vh;
+  padding-top: 8vh;
+}
+
+#main #landing-page {
+  height: 92vh;
+  margin: 0;
+}
+
+#main #signup-page .card,
+#main #signin-page .card {
+  min-width: 35%;
+}
+
+#main #dashboard-page #todo-cards .fa-edit:hover {
+  color: #000 !important;
+}
+
+#main #group-list-page #group-list {
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */

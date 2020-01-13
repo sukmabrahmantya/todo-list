@@ -1,9 +1,12 @@
-'use strict'
+const user = require('express').Router()
+const {
+  UserController,
+  TodoController,
+  GroupController
+} = require('../controllers')
 
-const express = require('express')
-const router = express.Router()
-const { User } = require('../controllers')
+user.get('/', UserController.getAllUser)
+user.get('/todos', TodoController.getAllUserTodos)
+user.get('/groups', GroupController.getAllUserGroups)
 
-router.post('/register', User.register)
-
-module.exports = router
+module.exports = user

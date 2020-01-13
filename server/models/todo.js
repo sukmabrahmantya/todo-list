@@ -1,41 +1,41 @@
-'use strict'
-
 const { Schema, model } = require('mongoose')
-const ObjectId = Schema.Types.ObjectId
 
-const todoSchema = new Schema ({
-  title: {
-    type: String,
-    required: [true, 'Title cannot be empty']
+const todoSchema = new Schema(
+  {
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Creator id required']
+    },
+    group: {
+      type: Schema.Types.ObjectId,
+      ref: 'Group'
+    },
+    name: {
+      type: String,
+      required: [true, 'Todo name required']
+    },
+    description: {
+      type: String
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ['done', 'pending', 'missed'],
+      default() {
+        return new Date(this.dueDate) >= new Date() ? 'pending' : 'missed'
+      }
+    },
+    dueDate: {
+      type: Date,
+      required: true,
+      default: new Date().setHours(23, 59, 59)
+    }
   },
-  description: {
-    type: String,
-    required: [true, 'Description cannot be empty']
-  },
-  status: {
-    type: Boolean
-  },
-  due: {
-    type: Date,
-    required: [true, 'Due date cannot be empty']
-  },
-  user: {
-    type: ObjectId,
-    ref: 'User'
-  },
-  project: {
-    type: ObjectId,
-    ref: 'Project'
+  {
+    timestamps: true
   }
-}, {
-  timestamps: true,
-  versionKey: false
-})
-
-todoSchema.pre('save', function(next) {
-  this.status = false
-  next()
-})
+)
 
 const Todo = model('Todo', todoSchema)
 
