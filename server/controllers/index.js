@@ -3,3 +3,4 @@ module.exports = {
   TodoController: require('./todoC'),
   GroupController: require('./groupC')
 }
+

@@ -1,6 +1,6 @@
 const { Schema, model, models } = require('mongoose')
 
-const groupSchema = new Schema({
+const groupSchema = new Schema ({
   name: {
     type: String,
     required: [true, 'Group name required']

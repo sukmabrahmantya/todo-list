@@ -1,7 +1,7 @@
 const { Schema, model, models } = require('mongoose')
 const { hash } = require('../helpers/passwordHandler')
 
-const userShcema = new Schema(
+const userShcema = new Schema (
   {
     username: {
       type: String,
